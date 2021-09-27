@@ -6,7 +6,7 @@
 /*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:48:39 by bagovic           #+#    #+#             */
-/*   Updated: 2021/09/27 10:54:40 by bagovic          ###   ########.fr       */
+/*   Updated: 2021/09/27 12:05:44 by bagovic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	main(void)
 {
-	ft_printf("Hello,%XWorld!");
+	ft_printf("Hello, %corld!", 'W');
 	return (0);
 }

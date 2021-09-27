@@ -6,7 +6,7 @@
 #    By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/27 09:27:40 by bagovic           #+#    #+#              #
-#    Updated: 2021/09/27 09:41:38 by bagovic          ###   ########.fr        #
+#    Updated: 2021/09/27 12:05:20 by bagovic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC = ft_printf.c
 all: $(NAME)
 
 $(NAME):
-	make --directory=$(LIBFT_SRC)
+	make --directory=$(LIBFT_SRC) bonus
 	$(CC) $(CFLAGS) -c $(SRC)
 	ar r $(NAME) $(SRC:.c=.o)
 
