@@ -6,7 +6,7 @@
 /*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:20:46 by bagovic           #+#    #+#             */
-/*   Updated: 2021/09/27 12:37:19 by bagovic          ###   ########.fr       */
+/*   Updated: 2021/09/27 15:58:48 by bagovic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,58 +31,76 @@ static char	*ft_get_wildcards(void)
 	return (wildcards);
 }
 
-static char	ft_check_wildcard(const char format)
+static char	ft_check_wildcard(const char *format)
 {
 	char	*wildcards;
+	int		format_i;
 	int		wc_i;
 
 	wildcards = ft_get_wildcards();
-	wc_i = 0;
-	while (wc_i < 9)
+	format_i = 0;
+	while (format[format_i] != '\0')
 	{
-		if (format == wildcards[wc_i])
-			return (1);
-		wc_i++;
+		if (format[format_i] == '%')
+		{
+			format_i++;
+			wc_i = 0;
+			while (wc_i < 9)
+			{
+				if (format[format_i] == wildcards[wc_i])
+					return (1);
+				wc_i++;
+			}
+		}
+		format_i++;
 	}
 	return (0);
 }
 //cspdiuxX%
-static void	ft_print_wildcard(int element, t_list *wildcard)
+static void	ft_print_wildcard(va_list valist, char *wc)
 {
-	if ((char) wildcard->content == 'c')
-		ft_putchar_fd((char) element, 1);
+	int	p;
+
+	p = va_arg(valist, void);
+	if ((int) *wc == 'c')
+		ft_putchar_fd((char) p, 1);
+	else if (*wc == 's')
+		ft_putstr_fd((char *) p, 1);
+	else if (*wc == 'p')
+	{}
+	else if ((int) *wc == 'd')
+		ft_putnbr_fd((int) p, 1);
 }
 
 int	ft_printf(const char *format, ...)
 {
-	va_list	valist;
 	t_list	*wildcards;
-	char	wc;
+	va_list	valist;
+	char	*wc;
 	int		i;
 
 	i = 0;
 	wildcards = NULL;
+	if (ft_check_wildcard(format) == 0)
+		return (0);
+	va_start(valist, format);
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
 		{
-			if (ft_check_wildcard(format[++i]) == 1)
-			{
-				ft_lstadd_back(&wildcards, ft_lstnew(format[i]));
-			}
-			else
-				write(1, &format[--i], 1);
+			wc = ft_substr(format, ++i, 1);
+			ft_print_wildcard(valist, wc);
 		}
 		else
 			write(1, &format[i], 1);
 		i++;
 	}
-	write(1, wildcards->content, ft_strlen(wildcards->content));
+	va_end(valist);
 	return (0);
 }
 
 int	main(void)
 {
-	ft_printf("Hello, %corld!", 'W');
+	ft_printf("Hello %s\n", "World!");
 	return (0);
 }
