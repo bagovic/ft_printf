@@ -6,7 +6,7 @@
 /*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:20:46 by bagovic           #+#    #+#             */
-/*   Updated: 2021/09/27 15:58:48 by bagovic          ###   ########.fr       */
+/*   Updated: 2021/09/30 17:15:19 by bagovic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,19 @@ static char	ft_check_wildcard(const char *format)
 //cspdiuxX%
 static void	ft_print_wildcard(va_list valist, char *wc)
 {
-	int	p;
+	char	*p;
 
-	p = va_arg(valist, void);
+	p = va_arg(valist, char *);
 	if ((int) *wc == 'c')
 		ft_putchar_fd((char) p, 1);
 	else if (*wc == 's')
-		ft_putstr_fd((char *) p, 1);
-	else if (*wc == 'p')
-	{}
+		ft_putstr_fd(p, 1);
+	// else if (*wc == 'p')
+	// {}
 	else if ((int) *wc == 'd')
 		ft_putnbr_fd((int) p, 1);
+	else if ((int) *wc == '%')
+		ft_putchar_fd((char) p, 1);
 }
 
 int	ft_printf(const char *format, ...)
@@ -101,6 +103,6 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	ft_printf("Hello %s\n", "World!");
+	ft_printf("Hello%s\n", ", World!");
 	return (0);
 }
