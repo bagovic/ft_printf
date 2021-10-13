@@ -6,7 +6,7 @@
 /*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:20:46 by bagovic           #+#    #+#             */
-/*   Updated: 2021/09/30 17:15:19 by bagovic          ###   ########.fr       */
+/*   Updated: 2021/10/12 14:30:20 by bagovic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ static void	ft_print_wildcard(va_list valist, char *wc)
 {
 	char	*p;
 
+	if ((int) *wc == '%')
+	{
+		write (1, wc, 1);
+		return ;
+	}
 	p = va_arg(valist, char *);
 	if ((int) *wc == 'c')
 		ft_putchar_fd((char) p, 1);
@@ -70,8 +75,6 @@ static void	ft_print_wildcard(va_list valist, char *wc)
 	// {}
 	else if ((int) *wc == 'd')
 		ft_putnbr_fd((int) p, 1);
-	else if ((int) *wc == '%')
-		ft_putchar_fd((char) p, 1);
 }
 
 int	ft_printf(const char *format, ...)
@@ -83,8 +86,8 @@ int	ft_printf(const char *format, ...)
 
 	i = 0;
 	wildcards = NULL;
-	if (ft_check_wildcard(format) == 0)
-		return (0);
+	// if (ft_check_wildcard(format) == 0)
+	// 	return (0);
 	va_start(valist, format);
 	while (format[i] != '\0')
 	{
@@ -103,6 +106,7 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	ft_printf("Hello%s\n", ", World!");
+	ft_printf("Hello%d%%%c %s\n", 13134, ',', "World!");
+	printf("Hello %#s", "world!");
 	return (0);
 }
