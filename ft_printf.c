@@ -6,95 +6,98 @@
 /*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:20:46 by bagovic           #+#    #+#             */
-/*   Updated: 2021/10/12 14:30:20 by bagovic          ###   ########.fr       */
+/*   Updated: 2021/10/25 17:57:56 by bagovic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 //cspdiuxX%
 
-static char	*ft_get_wildcards(void)
-{
-	char	*wildcards;
+// static char	ft_check_wildcard(const char *format)
+// {
+// 	char	*wildcards;
+// 	int		format_i;
+// 	int		wc_i;
 
-	wildcards = malloc(sizeof (char) * 9);
-	wildcards[0] = 'c';
-	wildcards[1] = 's';
-	wildcards[2] = 'p';
-	wildcards[3] = 'd';
-	wildcards[4] = 'i';
-	wildcards[5] = 'u';
-	wildcards[6] = 'x';
-	wildcards[7] = 'X';
-	wildcards[8] = '%';
-	return (wildcards);
-}
-
-static char	ft_check_wildcard(const char *format)
-{
-	char	*wildcards;
-	int		format_i;
-	int		wc_i;
-
-	wildcards = ft_get_wildcards();
-	format_i = 0;
-	while (format[format_i] != '\0')
-	{
-		if (format[format_i] == '%')
-		{
-			format_i++;
-			wc_i = 0;
-			while (wc_i < 9)
-			{
-				if (format[format_i] == wildcards[wc_i])
-					return (1);
-				wc_i++;
-			}
-		}
-		format_i++;
-	}
-	return (0);
-}
+// 	wildcards = ft_get_wildcards();
+// 	format_i = 0;
+// 	while (format[format_i] != '\0')
+// 	{
+// 		if (format[format_i] == '%')
+// 		{
+// 			format_i++;
+// 			wc_i = 0;
+// 			while (wc_i < 9)
+// 			{
+// 				if (format[format_i] == wildcards[wc_i])
+// 					return (1);
+// 				wc_i++;
+// 			}
+// 		}
+// 		format_i++;
+// 	}
+// 	return (0);
+// }
 //cspdiuxX%
-static void	ft_print_wildcard(va_list valist, char *wc)
+static void	ft_printwc(va_list valist, char wc)
 {
 	char	*p;
 
-	if ((int) *wc == '%')
+	if ((int) wc == '%')
 	{
-		write (1, wc, 1);
+		write (1, &wc, 1);
 		return ;
 	}
 	p = va_arg(valist, char *);
-	if ((int) *wc == 'c')
+	if ((int) wc == 'c')
 		ft_putchar_fd((char) p, 1);
-	else if (*wc == 's')
+	else if (wc == 's')
 		ft_putstr_fd(p, 1);
 	// else if (*wc == 'p')
 	// {}
-	else if ((int) *wc == 'd')
+	else if ((int) wc == 'd')
 		ft_putnbr_fd((int) p, 1);
+}
+
+static void	ft_flwc(va_list	valist, char *flwc)
+{
+	int	i;
+	int	y;
+
+	i = 0;
+	while (flwc[i] != '\0')
+	{
+		y = 0;
+		while (y < 9)
+		{
+			if (flwc[i] == g_wildcards[y])
+			{
+				ft_printwc(valist, flwc[i]);
+				return ;
+			}
+			y++;
+		}
+		i++;
+	}
 }
 
 int	ft_printf(const char *format, ...)
 {
-	t_list	*wildcards;
 	va_list	valist;
-	char	*wc;
+	char	*flwc;
 	int		i;
 
+	ft_initialize_data();
 	i = 0;
-	wildcards = NULL;
-	// if (ft_check_wildcard(format) == 0)
-	// 	return (0);
 	va_start(valist, format);
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
 		{
-			wc = ft_substr(format, ++i, 1);
-			ft_print_wildcard(valist, wc);
+			flwc = ft_substr(format, i + 1, ft_strlen(format) - (i + 1));
+			ft_flwc(valist, flwc);
+			i++;
 		}
 		else
 			write(1, &format[i], 1);
@@ -106,7 +109,8 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	ft_printf("Hello%d%%%c %s\n", 13134, ',', "World!");
-	printf("Hello %#s", "world!");
+	ft_printf("Hello %% %s", "World!");
+	// ft_printf("Hello%d%%%c %s\n", 13134, ',', "World!");
+	// // printf("Hello %#s", "world!");
 	return (0);
 }
