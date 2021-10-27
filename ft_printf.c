@@ -3,10 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
+/*   By: berminagovic <berminagovic@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< Updated upstream
 /*   Created: 2021/09/27 09:20:46 by bagovic           #+#    #+#             */
 /*   Updated: 2021/09/30 17:15:19 by bagovic          ###   ########.fr       */
+=======
+/*   Created: 2021/10/13 12:56:42 by berminagovi       #+#    #+#             */
+/*   Updated: 2021/10/21 19:55:47 by berminagovi      ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +23,7 @@ static char	*ft_get_wildcards(void)
 {
 	char	*wildcards;
 
+<<<<<<< Updated upstream
 	wildcards = malloc(sizeof (char) * 9);
 	wildcards[0] = 'c';
 	wildcards[1] = 's';
@@ -29,6 +35,40 @@ static char	*ft_get_wildcards(void)
 	wildcards[7] = 'X';
 	wildcards[8] = '%';
 	return (wildcards);
+=======
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*lst;
+
+	// write(1, content, 1);
+	lst = NULL;
+	lst = malloc(sizeof (struct s_list));
+	if (lst == NULL)
+		return (NULL);
+	lst->content = content;
+	lst->next = NULL;
+	return (lst);
+}
+
+static	char	*ft_getwc(va_list valist, t_list *print_list, char wildcard)
+{
+	char	*p;
+
+	p = va_arg(valist, char *);
+	if (wildcard == 'c')
+	{
+		write(5, &p, 1);
+		ft_lstadd_back(&print_list, ft_lstnew(&p));
+	}
+	// else if (wildcard == 's')
+	// 	wc = p;
+	// // p
+	// else if (wildcard == 'd')
+	// 	wc = p;
+	// else if (wildcard == '%')
+	// 	wc = (char *)'%';
+	return(NULL);
+>>>>>>> Stashed changes
 }
 
 static char	ft_check_wildcard(const char *format)
