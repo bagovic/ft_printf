@@ -6,17 +6,19 @@
 /*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:20:46 by bagovic           #+#    #+#             */
-/*   Updated: 2021/10/26 18:04:46 by bagovic          ###   ########.fr       */
+/*   Updated: 2021/10/30 17:14:19 by bagovic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_numlen(int num)
+static int	ft_numlen(long num)
 {
 	int	len;
 
 	len = 0;
+	if (num < 0)
+		len++;
 	while (num != 0 || len == 0)
 	{
 		num = num / 10;
@@ -43,13 +45,25 @@ static int	ft_printwc(va_list valist, char wc)
 	}
 	else if (wc == 's')
 	{
+		if (p == NULL)
+			p = "(null)";
 		ft_putstr_fd(p, 1);
 		return (ft_strlen(p));
 	}
 	else if ((int) wc == 'd')
 	{
+		ft_putnbr_fd((long) p, 1);
+		return (ft_numlen((long) p));
+	}
+	else if (wc == 'i')
+	{
 		ft_putnbr_fd((int) p, 1);
 		return (ft_numlen((int) p));
+	}
+	else if (wc == 'u')
+	{
+		ft_putunsigned((unsigned long) p);
+		return (ft_numlen((unsigned long) p));
 	}
 	return (0);
 }
@@ -91,6 +105,7 @@ int	ft_printf(const char *format, ...)
 		{
 			flwc = ft_substr(format, i + 1, ft_strlen(format) - (i + 1));
 			output_count += ft_flwc(valist, flwc);
+			free(flwc);
 			i++;
 		}
 		else
@@ -104,11 +119,14 @@ int	ft_printf(const char *format, ...)
 	return (output_count);
 }
 
-int	main(void)
-{
-	// ft_printf("Hello %% %s", "World!");
-	ft_printf("%d", ft_printf("Hello%d%%%c %s\n", 13134, ',', "World!"));
-	//Hello13134%, World!
-	// // printf("Hello %#s", "world!");
-	return (0);
-}
+// int	main(void)
+// {
+// 	// ft_printf("Hello %% %s", "World!");
+// 	// ft_printf("%d", ft_printf("Hello%d%%%c %s\n", 13134, ',', "World!"));
+// 	// printf(" NULL %s NULL ", NULL);
+// 	ft_printf("%u", -1);
+// 	// ft_printf("\n%d", printf("%u", -1));
+// 	//Hello13134%, World!
+// 	// // printf("Hello %#s", "world!");
+// 	return (0);
+// }
