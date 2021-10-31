@@ -6,13 +6,13 @@
 /*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:20:46 by bagovic           #+#    #+#             */
-/*   Updated: 2021/10/30 17:14:19 by bagovic          ###   ########.fr       */
+/*   Updated: 2021/10/31 11:02:19 by bagovic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_numlen(long num)
+static int	ft_numlen(long long num)
 {
 	int	len;
 
@@ -62,8 +62,8 @@ static int	ft_printwc(va_list valist, char wc)
 	}
 	else if (wc == 'u')
 	{
-		ft_putunsigned((unsigned long) p);
-		return (ft_numlen((unsigned long) p));
+		ft_putunsigned((unsigned int) p);
+		return (ft_numlen((unsigned int) p));
 	}
 	return (0);
 }
@@ -121,12 +121,12 @@ int	ft_printf(const char *format, ...)
 
 // int	main(void)
 // {
-// 	// ft_printf("Hello %% %s", "World!");
-// 	// ft_printf("%d", ft_printf("Hello%d%%%c %s\n", 13134, ',', "World!"));
-// 	// printf(" NULL %s NULL ", NULL);
-// 	ft_printf("%u", -1);
-// 	// ft_printf("\n%d", printf("%u", -1));
-// 	//Hello13134%, World!
-// 	// // printf("Hello %#s", "world!");
+	
+// 	printf(" %u\n ", __LONG_MAX__);
+// 	printf(" %u\n ", LONG_MIN);
+
+// 	printf(" %u\n ", ULONG_MAX);
+// 	printf(" %u \n", 9223372036854775807LL);
+// 	printf(" %u %u %u %u %u %u %u", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
 // 	return (0);
 // }
