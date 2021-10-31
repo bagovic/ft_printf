@@ -6,7 +6,7 @@
 /*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:20:46 by bagovic           #+#    #+#             */
-/*   Updated: 2021/10/31 11:02:19 by bagovic          ###   ########.fr       */
+/*   Updated: 2021/10/31 16:29:30 by bagovic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	ft_numlen(long long num)
 	return (len);
 }
 
-//cspdiuxX%
+//pxX
 static int	ft_printwc(va_list valist, char wc)
 {
 	char	*p;
@@ -50,6 +50,8 @@ static int	ft_printwc(va_list valist, char wc)
 		ft_putstr_fd(p, 1);
 		return (ft_strlen(p));
 	}
+	else if (wc == 'p')
+		return (ft_puthex((size_t) p, 87));
 	else if ((int) wc == 'd')
 	{
 		ft_putnbr_fd((long) p, 1);
@@ -121,12 +123,8 @@ int	ft_printf(const char *format, ...)
 
 // int	main(void)
 // {
-	
-// 	printf(" %u\n ", __LONG_MAX__);
-// 	printf(" %u\n ", LONG_MIN);
-
-// 	printf(" %u\n ", ULONG_MAX);
-// 	printf(" %u \n", 9223372036854775807LL);
-// 	printf(" %u %u %u %u %u %u %u", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+// 	char *str = "World!";
+// 	ft_printf("Hello %p", str);
+// 	printf("\nHello %p", str);
 // 	return (0);
 // }

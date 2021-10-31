@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_puthex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 09:21:41 by bagovic           #+#    #+#             */
-/*   Updated: 2021/10/31 16:24:25 by bagovic          ###   ########.fr       */
+/*   Created: 2021/10/31 14:26:30 by bagovic           #+#    #+#             */
+/*   Updated: 2021/10/31 16:29:22 by bagovic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft/libft.h"
-# include <stdio.h>
-# include <stdarg.h>
-# include <unistd.h>
+#include "ft_printf.h"
 
-int	g_wildcards[9];
+int	ft_puthex(long dec, int hexcase)
+{
+	char	hex[99];
+	int		i;
+	int		output_count;
+	int		temp;
 
-void	ft_initialize_data(void);
-void	ft_putunsigned(long long n);
-int		ft_puthex(long dec, int hexcase);
-int		ft_printf(const char *format, ...);
-
-#endif
+	i = 0;
+	while (dec != 0)
+	{
+		temp = dec % 16;
+		if (temp < 10)
+			hex[i] = temp + 48;
+		else if (temp >= 10)
+			hex[i] = temp + hexcase;
+		dec /= 16;
+		i++;
+	}
+	output_count = i + 2;
+	ft_putstr_fd("0x", 1);
+	while (--i >= 0)
+		write(1, &hex[i], 1);
+	return (output_count);
+}

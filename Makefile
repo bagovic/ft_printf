@@ -6,7 +6,7 @@
 #    By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/27 09:27:40 by bagovic           #+#    #+#              #
-#    Updated: 2021/10/30 17:13:38 by bagovic          ###   ########.fr        #
+#    Updated: 2021/10/31 16:24:10 by bagovic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ CFLAGS = -Wall -Wextra -Werror
 LIBFT_DIR = libft/
 SRC = ft_printf.c\
 	datas.c\
-	ft_putunsigned.c
+	ft_putunsigned.c\
+	ft_puthex.c
 
 all: $(NAME)
 
