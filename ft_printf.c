@@ -1,18 +1,43 @@
-<<<<<<< HEAD
-=======
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
+/*   By: berminagovic <berminagovic@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:20:46 by bagovic           #+#    #+#             */
-/*   Updated: 2021/10/31 16:29:30 by bagovic          ###   ########.fr       */
+/*   Updated: 2021/11/02 15:07:58 by berminagovi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+// int	ft_puthex(unsigned long long dec, int hexcase)
+// {
+// 	char	hex[99];
+// 	int		i;
+// 	int		output_count;
+// 	int		temp;
+
+// 	i = 0;
+// 	while (dec != 0 || i == 0)
+// 	{
+// 		temp = dec % 16;
+// 		if (temp < 0)
+// 			temp *= -1;
+// 		if (temp < 10)
+// 			hex[i] = temp + 48;
+// 		else if (temp >= 10)
+// 			hex[i] = temp + hexcase;
+// 		dec /= 16;
+// 		i++;
+// 	}
+// 	output_count = i + 2;
+// 	ft_putstr_fd("0x", 1);
+// 	while (--i >= 0)
+// 		write(1, &hex[i], 1);
+// 	return (output_count);
+// }
 
 static int	ft_numlen(long long num)
 {
@@ -42,7 +67,7 @@ static int	ft_printwc(va_list valist, char wc)
 	p = va_arg(valist, char *);
 	if ((int) wc == 'c')
 	{
-		ft_putchar_fd((char) p, 1);
+		write(1, p, 1);
 		return (1);
 	}
 	else if (wc == 's')
@@ -53,7 +78,7 @@ static int	ft_printwc(va_list valist, char wc)
 		return (ft_strlen(p));
 	}
 	else if (wc == 'p')
-		return (ft_puthex((size_t) p, 87));
+		return (ft_puthex((long long) p, 87));
 	else if ((int) wc == 'd')
 	{
 		ft_putnbr_fd((long) p, 1);
@@ -61,13 +86,13 @@ static int	ft_printwc(va_list valist, char wc)
 	}
 	else if (wc == 'i')
 	{
-		ft_putnbr_fd((int) p, 1);
-		return (ft_numlen((int) p));
+		ft_putnbr_fd((int) ft_atoi(p), 1);
+		return (ft_numlen((int) ft_atoi(p)));
 	}
 	else if (wc == 'u')
 	{
-		ft_putunsigned((unsigned int) p);
-		return (ft_numlen((unsigned int) p));
+		ft_putunsigned((unsigned int)(long) p);
+		return (ft_numlen((unsigned int)(long) p));
 	}
 	return (0);
 }
@@ -125,9 +150,9 @@ int	ft_printf(const char *format, ...)
 
 // int	main(void)
 // {
-// 	char *str = "World!";
-// 	ft_printf("Hello %p", str);
-// 	printf("\nHello %p", str);
+// 	ft_printf("ULONG_MAX: %p ULONG_MIN: %p \n", (__LONG_MAX__ *2UL+1UL), -(__LONG_MAX__ *2UL+1UL));
+// 	printf("ULONG_MAX: %p ULONG_MIN: %p", (__LONG_MAX__ *2UL+1UL), -(__LONG_MAX__ *2UL+1UL));
+// 	// ft_printf("0: %p\n", 0);
+// 	// printf("0: %p", 0);
 // 	return (0);
 // }
->>>>>>> 24a788e6d4a3b7579b6ecddbbeb9563ca6f18433

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_puthex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
+/*   By: berminagovic <berminagovic@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 14:26:30 by bagovic           #+#    #+#             */
-/*   Updated: 2021/10/31 16:29:22 by bagovic          ###   ########.fr       */
+/*   Updated: 2021/11/02 15:08:15 by berminagovi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_puthex(long dec, int hexcase)
+int	ft_puthex(unsigned long long dec, int hexcase)
 {
 	char	hex[99];
 	int		i;
@@ -20,9 +20,11 @@ int	ft_puthex(long dec, int hexcase)
 	int		temp;
 
 	i = 0;
-	while (dec != 0)
+	while (dec != 0 || i == 0)
 	{
 		temp = dec % 16;
+		if (temp < 0)
+			temp *= -1;
 		if (temp < 10)
 			hex[i] = temp + 48;
 		else if (temp >= 10)
