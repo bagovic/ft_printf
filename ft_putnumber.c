@@ -1,19 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunsigned.c                                   :+:      :+:    :+:   */
+/*   ft_putnumber.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
+/*   By: berminagovic <berminagovic@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 17:10:35 by bagovic           #+#    #+#             */
-/*   Updated: 2021/10/31 11:01:26 by bagovic          ###   ########.fr       */
+/*   Updated: 2021/11/06 10:03:22 by berminagovi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "ft_printf.h"
 
-static int	ft_reverse_n(long long *n)
+static int	ft_numlen(long long num)
+{
+	int	len;
+
+	len = 0;
+	if (num < 0)
+		len++;
+	while (num != 0 || len == 0)
+	{
+		num = num / 10;
+		len++;
+	}
+	return (len);
+}
+
+static int	ft_reverse_unsigned_n(long long *n)
 {
 	long long	n_reversed;
 	int			n_size;
@@ -44,7 +59,7 @@ void	ft_putunsigned(long long n)
 		n = 0;
 	else if (n > 4294967295)
 		n = 4294967295;
-	nsize = ft_reverse_n(&n);
+	nsize = ft_reverse_unsigned_n(&n);
 	while (nsize != 0)
 	{
 		digit = n % 10 + '0';
@@ -52,4 +67,16 @@ void	ft_putunsigned(long long n)
 		n /= 10;
 		nsize--;
 	}
+}
+
+int	ft_putnumber(long n)
+{
+	char	*nstr;
+	int		output_count;
+
+	nstr = ft_itoa(n);
+	output_count = ft_strlen(nstr);
+	ft_putstr_fd(nstr, 1);
+	free(nstr);
+	return (output_count);
 }
