@@ -6,12 +6,17 @@
 /*   By: berminagovic <berminagovic@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:20:46 by bagovic           #+#    #+#             */
-/*   Updated: 2021/11/06 09:35:38 by berminagovi      ###   ########.fr       */
+/*   Updated: 2021/11/09 15:48:34 by berminagovi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+#define INT_MAX __INT_MAX__
+#define INT_MIN (-__INT_MAX__ -1)
+#define LONG_MAX __LONG_MAX__
+#define LONG_MIN (-__LONG_MAX__ -1L)
+#define ULONG_MAX (__LONG_MAX__ *2UL+1UL)
+#define UINT_MAX (__INT_MAX__ *2U +1U)
 // int	ft_puthex(unsigned long long dec, int hexcase, int is_address)
 // {
 // 	char	hex[99];
@@ -99,7 +104,7 @@ static int	ft_printwc(va_list valist, char wc)
 	else if (wc == 'x')
 		return (ft_puthex((long long) p, 87));
 	else if (wc == 'X')
-		return (ft_puthex((unsigned long long) p, 55));
+		return (ft_puthex((long long) p, 55));
 	return (0);
 }
 
@@ -153,16 +158,3 @@ int	ft_printf(const char *format, ...)
 	va_end(valist);
 	return (output_count);
 }
-
-// int	main(void)
-// {
-// 	ft_printf("LONG_MAX: %x LONG_MIN: %x \n", (__LONG_MAX__ * 2UL), -(__LONG_MAX__+1UL));
-// 	printf("LONG_MAX: %x LONG_MIN: %x", (__LONG_MAX__ * 2UL), -(__LONG_MAX__+1UL));
-// 	// ft_printf("0: %p\n", 0);
-// 	// // printf("0: %p", 0);
-// 	// ft_printf("%x\n", -100);
-// 	// ft_printf("%X\n", -100);
-// 	// printf("%x\n", -100);
-// 	// printf("%X\n", 85);
-// 	return (0);
-// }

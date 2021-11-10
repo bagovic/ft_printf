@@ -6,7 +6,7 @@
 /*   By: berminagovic <berminagovic@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:48:39 by bagovic           #+#    #+#             */
-/*   Updated: 2021/11/06 09:54:31 by berminagovi      ###   ########.fr       */
+/*   Updated: 2021/11/09 20:52:52 by berminagovi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,41 +18,29 @@
 #define ULONG_MAX (__LONG_MAX__ *2UL+1UL)
 #define UINT_MAX (__INT_MAX__ *2U +1U)
 
-	// TEST(13, print(" %d ", -9));
-	// TEST(14, print(" %d ", -10));
-	// TEST(15, print(" %d ", -11));
-	// TEST(16, print(" %d ", -14));
-	// TEST(17, print(" %d ", -15));
-	// TEST(18, print(" %d ", -16));
-	// TEST(19, print(" %d ", -99));
-	// TEST(20, print(" %d ", -100));
-	// TEST(21, print(" %d ", -101));
-	// TEST(23, print(" %d ", INT_MIN));
-	// TEST(24, print(" %d ", LONG_MAX));
-	// TEST(25, print(" %d ", LONG_MIN));
-	// TEST(26, print(" %d ", UINT_MAX));
-	// TEST(27, print(" %d ", ULONG_MAX));
-	// TEST(28, print(" %d ", 9223372036854775807LL));
-	// TEST(29, print(" %d %d %d %d %d %d %d", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42));
+
+	// TEST(24, print(" %x ", LONG_MAX));
+	// TEST(25, print(" %x ", LONG_MIN));
+	// TEST(27, print(" %x ", ULONG_MAX));
+	// TEST(28, print(" %x ", 9223372036854775807LL));
+	// TEST(29, print(" %x %x %x %x %x %x %x", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42));
 
 void	test_ft_printf()
 {
-	ft_printf("OUTPUT_COUNT: %d\n", ft_printf("OUTPUT: %d\n", -9));
-	ft_printf("OUTPUT_COUNT: %d\n", ft_printf("OUTPUT: %d\n", -10));
-	ft_printf("OUTPUT_COUNT: %d\n", ft_printf("OUTPUT: %d\n", -15));
-	ft_printf("OUTPUT_COUNT: %d\n", ft_printf("OUTPUT: %d\n", -16));
-	ft_printf("OUTPUT_COUNT: %d\n", ft_printf("OUTPUT: %d\n", -99));
-	ft_printf("OUTPUT_COUNT: %d\n", ft_printf("OUTPUT: %d\n", -101));
+	ft_printf("OUTPUT_COUNT: %d\n", ft_printf("OUTPUT: %x\n", -1));
+	ft_printf("OUTPUT_COUNT: %d\n", ft_printf("OUTPUT: %x\n", LONG_MAX));
+	ft_printf("OUTPUT_COUNT: %d\n", ft_printf("OUTPUT: %x\n", LONG_MIN));
+	ft_printf("OUTPUT_COUNT: %d\n", ft_printf("OUTPUT: %x\n", ULONG_MAX));
+	ft_printf("OUTPUT_COUNT: %d\n", ft_printf("OUTPUT: %x\n", 9223372036854775807LL));
 }
 
 void	test_printf()
 {
-	printf("OUTPUT_COUNT: %d\n", printf("OUTPUT: %d\n", -9));
-	printf("OUTPUT_COUNT: %d\n", printf("OUTPUT: %d\n", -10));
-	printf("OUTPUT_COUNT: %d\n", printf("OUTPUT: %d\n", -15));
-	printf("OUTPUT_COUNT: %d\n", printf("OUTPUT: %d\n", -16));
-	printf("OUTPUT_COUNT: %d\n", printf("OUTPUT: %d\n", -99));
-	printf("OUTPUT_COUNT: %d\n", printf("OUTPUT: %d\n", -101));
+	printf("OUTPUT_COUNT: %d\n", printf("OUTPUT: %x\n", -1));
+	printf("OUTPUT_COUNT: %d\n", printf("OUTPUT: %x\n", LONG_MAX));
+	printf("OUTPUT_COUNT: %d\n", printf("OUTPUT: %x\n", LONG_MIN));
+	printf("OUTPUT_COUNT: %d\n", printf("OUTPUT: %x\n", ULONG_MAX));
+	printf("OUTPUT_COUNT: %d\n", printf("OUTPUT: %x\n", 9223372036854775807LL));
 }
 
 int	main(void)
