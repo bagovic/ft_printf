@@ -6,63 +6,27 @@
 /*   By: berminagovic <berminagovic@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:20:46 by bagovic           #+#    #+#             */
-/*   Updated: 2021/11/09 15:48:34 by berminagovi      ###   ########.fr       */
+/*   Updated: 2021/11/16 12:23:44 by berminagovi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#define INT_MAX __INT_MAX__
-#define INT_MIN (-__INT_MAX__ -1)
-#define LONG_MAX __LONG_MAX__
-#define LONG_MIN (-__LONG_MAX__ -1L)
-#define ULONG_MAX (__LONG_MAX__ *2UL+1UL)
-#define UINT_MAX (__INT_MAX__ *2U +1U)
-// int	ft_puthex(unsigned long long dec, int hexcase, int is_address)
-// {
-// 	char	hex[99];
-// 	int		i;
-// 	int		output_count;
-// 	int		temp;
 
-// 	i = 0;
-// 	if (dec < 0)
-// 		ft_putchar_fd('-', 1);
-// 	while (dec != 0 || i == 0)
-// 	{
-// 		temp = dec % 16;
-// 		if (temp < 0)
-// 			temp *= -1;
-// 		if (temp < 10)
-// 			hex[i] = temp + 48;
-// 		else if (temp >= 10)
-// 			hex[i] = temp + hexcase;‚
-// 		dec /= 16;
-// 		i++;
-// 	}
-// 	output_count = i;
-// 	if (is_address == 1)
-// 	{
-// 		output_count += 2;
-// 		ft_putstr_fd("0x", 1);
-// 	}
-// 	while (--i >= 0)
-// 		write(1, &hex[i], 1);
-// 	return (output_count);
-// }
-
-static int	ft_numlen(long long num)
+static int	ft_printnbrs(char wc, char *p)
 {
-	int	len;
-
-	len = 0;
-	if (num < 0)
-		len++;
-	while (num != 0 || len == 0)
-	{
-		num = num / 10;
-		len++;
-	}
-	return (len);
+	if (wc == 'p')
+		return (ft_putaddress((long long) p));
+	else if ((int) wc == 'd')
+		return (ft_putnumber((long) p));
+	else if (wc == 'i')
+		return (ft_putnumber((int)(long) p));
+	else if (wc == 'u')
+		return (ft_putunsigned((unsigned int)(long) p));
+	else if (wc == 'x')
+		return (ft_puthex((long long) p, 87));
+	else if (wc == 'X')
+		return (ft_puthex((long long) p, 55));
+	return (0);
 }
 
 static int	ft_printwc(va_list valist, char wc)
@@ -77,7 +41,7 @@ static int	ft_printwc(va_list valist, char wc)
 	p = va_arg(valist, char *);
 	if ((int) wc == 'c')
 	{
-		ft_putchar_fd((char) p, 1);
+		ft_putchar_fd((int)(long)p, 1);
 		return (1);
 	}
 	else if (wc == 's')
@@ -87,24 +51,8 @@ static int	ft_printwc(va_list valist, char wc)
 		ft_putstr_fd(p, 1);
 		return (ft_strlen(p));
 	}
-	else if (wc == 'p')
-		return (ft_putaddress((long long) p));
-	else if ((int) wc == 'd')
-		return (ft_putnumber((long) p));
-	else if (wc == 'i')
-	{
-		ft_putnbr_fd((int)(long) p, 1);
-		return (ft_numlen((int)(long) p));
-	}
-	else if (wc == 'u')
-	{
-		ft_putunsigned((unsigned int)(long) p);
-		return (ft_numlen((unsigned int)(long) p));
-	}
-	else if (wc == 'x')
-		return (ft_puthex((long long) p, 87));
-	else if (wc == 'X')
-		return (ft_puthex((long long) p, 55));
+	else
+		return (ft_printnbrs(wc, p));
 	return (0);
 }
 
@@ -128,17 +76,14 @@ static int	ft_flwc(va_list	valist, char *flwc)
 	return (0);
 }
 
-int	ft_printf(const char *format, ...)
+static int	ft_writeout(const char *format, va_list valist)
 {
-	va_list	valist;
 	char	*flwc;
-	int		output_count;
 	int		i;
+	int		output_count;
 
-	ft_initialize_data();
-	output_count = 0;
 	i = 0;
-	va_start(valist, format);
+	output_count = 0;
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
@@ -155,6 +100,18 @@ int	ft_printf(const char *format, ...)
 		}
 		i++;
 	}
+	return (output_count);
+}
+
+int	ft_printf(const char *format, ...)
+{
+	va_list	valist;
+	int		output_count;
+
+	ft_initialize_data();
+	output_count = 0;
+	va_start(valist, format);
+	output_count = ft_writeout(format, valist);
 	va_end(valist);
 	return (output_count);
 }

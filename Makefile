@@ -6,7 +6,7 @@
 #    By: berminagovic <berminagovic@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/27 09:27:40 by bagovic           #+#    #+#              #
-#    Updated: 2021/11/09 16:44:42 by berminagovi      ###   ########.fr        #
+#    Updated: 2021/11/16 12:12:29 by berminagovi      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ all: $(NAME)
 $(NAME):
 	make -C $(LIBFT_DIR) fclean
 	make -C $(LIBFT_DIR) bonus
-	$(CC) -c $(SRC)
+	$(CC) $(CFLAGS) -c $(SRC)
 	ar r $(NAME) $(SRC:.c=.o) $(LIBFT_DIR)*.o
 
 

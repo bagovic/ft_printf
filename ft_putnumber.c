@@ -6,7 +6,7 @@
 /*   By: berminagovic <berminagovic@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 17:10:35 by bagovic           #+#    #+#             */
-/*   Updated: 2021/11/09 16:58:25 by berminagovi      ###   ########.fr       */
+/*   Updated: 2021/11/16 12:29:52 by berminagovi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,17 @@ static int	ft_reverse_unsigned_n(long long *n)
 	return (n_size);
 }
 
-void	ft_putunsigned(long long n)
+int	ft_putunsigned(long long n)
 {
 	int	digit;
 	int	nsize;
+	int	output_count;
 
 	digit = 0;
+	output_count = ft_numlen(n);
 	if (n == 0)
 		write(1, "0", 1);
-	if (n < 0)
+	if ((long) n < 0)
 		n = 0;
 	else if (n > 4294967295)
 		n = 4294967295;
@@ -67,6 +69,7 @@ void	ft_putunsigned(long long n)
 		n /= 10;
 		nsize--;
 	}
+	return (output_count);
 }
 
 int	ft_putnumber(long n)
