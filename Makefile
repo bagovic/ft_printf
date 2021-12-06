@@ -6,7 +6,7 @@
 #    By: berminagovic <berminagovic@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/27 09:27:40 by bagovic           #+#    #+#              #
-#    Updated: 2021/11/16 12:12:29 by berminagovi      ###   ########.fr        #
+#    Updated: 2021/12/06 13:34:51 by berminagovi      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,10 +37,3 @@ fclean: clean
 	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
-
-m: re
-	gcc main.c libftprintf.a -o main.o
-	./main.o
-
-t: re
-	make -C tripouille/ $(opt)
