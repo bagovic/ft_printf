@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: berminagovic <berminagovic@student.42.f    +#+  +:+       +#+        */
+/*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:20:46 by bagovic           #+#    #+#             */
-/*   Updated: 2021/11/16 12:23:44 by berminagovi      ###   ########.fr       */
+/*   Updated: 2022/01/08 10:10:59 by bagovic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ static int	ft_flwc(va_list	valist, char *flwc)
 		{
 			if (flwc[i] == g_wildcards[y])
 				return (ft_printwc(valist, flwc[i]));
+			else if (flwc[i] == '\n')
+			{
+				write(1, "\n", 1);
+				return (1);
+			}
 			y++;
 		}
 		i++;
