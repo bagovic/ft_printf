@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: berminagovic <berminagovic@student.42.f    +#+  +:+       +#+         #
+#    By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/27 09:27:40 by bagovic           #+#    #+#              #
-#    Updated: 2021/12/06 13:34:51 by berminagovi      ###   ########.fr        #
+#    Updated: 2022/01/10 16:39:04 by bagovic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 LIBFT_DIR = libft/
 SRC = ft_printf.c\
-	datas.c\
 	ft_putnumber.c\
 	ft_puthex.c
 

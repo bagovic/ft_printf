@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: berminagovic <berminagovic@student.42.f    +#+  +:+       +#+        */
+/*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:21:41 by bagovic           #+#    #+#             */
-/*   Updated: 2021/11/16 12:07:17 by berminagovi      ###   ########.fr       */
+/*   Updated: 2022/01/10 16:34:23 by bagovic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,11 @@
 # include <stdarg.h>
 # include <unistd.h>
 
-int	g_wildcards[9];
-
 void	ft_initialize_data(void);
 int		ft_putunsigned(long long n);
 int		ft_putnumber(long n);
 int		ft_putaddress(unsigned long long dec);
-int		ft_puthex(long dec, int hexcase);
+int		ft_puthex(unsigned int dec, int hexcase);
 int		ft_printf(const char *format, ...);
 
 #endif

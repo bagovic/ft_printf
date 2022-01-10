@@ -6,7 +6,7 @@
 /*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:20:46 by bagovic           #+#    #+#             */
-/*   Updated: 2022/01/08 10:10:59 by bagovic          ###   ########.fr       */
+/*   Updated: 2022/01/10 16:33:43 by bagovic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,46 +56,20 @@ static int	ft_printwc(va_list valist, char wc)
 	return (0);
 }
 
-static int	ft_flwc(va_list	valist, char *flwc)
+int	ft_printf(const char *format, ...)
 {
-	int	i;
-	int	y;
-
-	i = 0;
-	while (flwc[i] != '\0')
-	{
-		y = 0;
-		while (y < 9)
-		{
-			if (flwc[i] == g_wildcards[y])
-				return (ft_printwc(valist, flwc[i]));
-			else if (flwc[i] == '\n')
-			{
-				write(1, "\n", 1);
-				return (1);
-			}
-			y++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-static int	ft_writeout(const char *format, va_list valist)
-{
-	char	*flwc;
-	int		i;
+	va_list	valist;
 	int		output_count;
+	int		i;
 
-	i = 0;
 	output_count = 0;
+	i = 0;
+	va_start(valist, format);
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
 		{
-			flwc = ft_substr(format, i + 1, ft_strlen(format) - (i + 1));
-			output_count += ft_flwc(valist, flwc);
-			free(flwc);
+			output_count += ft_printwc(valist, format[i + 1]);
 			i++;
 		}
 		else
@@ -105,18 +79,6 @@ static int	ft_writeout(const char *format, va_list valist)
 		}
 		i++;
 	}
-	return (output_count);
-}
-
-int	ft_printf(const char *format, ...)
-{
-	va_list	valist;
-	int		output_count;
-
-	ft_initialize_data();
-	output_count = 0;
-	va_start(valist, format);
-	output_count = ft_writeout(format, valist);
 	va_end(valist);
 	return (output_count);
 }
