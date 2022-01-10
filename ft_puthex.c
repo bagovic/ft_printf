@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_puthex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: berminagovic <berminagovic@student.42.f    +#+  +:+       +#+        */
+/*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 14:26:30 by bagovic           #+#    #+#             */
-/*   Updated: 2021/12/07 15:37:30 by berminagovi      ###   ########.fr       */
+/*   Updated: 2022/01/10 15:57:13 by bagovic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ static int	ft_hexlen(int dec)
 		dec /= 16;
 		hexlen++;
 	}
-	return (hexlen);
+	if (hexlen > 64)
+		return (hexlen + 64);
+	return (64);
 }
 
 static char	*ft_convert_to_hex(unsigned int dec, int hexcase)
@@ -32,7 +34,7 @@ static char	*ft_convert_to_hex(unsigned int dec, int hexcase)
 	int		i;
 
 	i = 0;
-	hex = malloc(sizeof (char) * ft_hexlen(dec));
+	hex = ft_calloc(ft_hexlen(dec), sizeof (char *));
 	while (dec != 0 || i == 0)
 	{
 		temp = dec % 16;
