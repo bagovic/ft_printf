@@ -6,7 +6,7 @@
 /*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:21:41 by bagovic           #+#    #+#             */
-/*   Updated: 2022/01/10 16:34:23 by bagovic          ###   ########.fr       */
+/*   Updated: 2022/01/12 08:12:54 by bagovic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdarg.h>
 # include <unistd.h>
 
-void	ft_initialize_data(void);
 int		ft_putunsigned(long long n);
 int		ft_putnumber(long n);
 int		ft_putaddress(unsigned long long dec);

@@ -6,7 +6,7 @@
 /*   By: bagovic <bagovic@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 09:20:46 by bagovic           #+#    #+#             */
-/*   Updated: 2022/01/10 16:33:43 by bagovic          ###   ########.fr       */
+/*   Updated: 2022/01/12 08:45:58 by bagovic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static int	ft_printwc(va_list valist, char wc)
 		ft_putstr_fd(p, 1);
 		return (ft_strlen(p));
 	}
+	else if (wc == '\n')
+		return (1);
 	else
 		return (ft_printnbrs(wc, p));
 	return (0);
@@ -65,10 +67,12 @@ int	ft_printf(const char *format, ...)
 	output_count = 0;
 	i = 0;
 	va_start(valist, format);
-	while (format[i] != '\0')
+	while (i < (int)ft_strlen(format))
 	{
 		if (format[i] == '%')
 		{
+			if (format[i + 1] == '\n')
+				write(1, "\n", 1);
 			output_count += ft_printwc(valist, format[i + 1]);
 			i++;
 		}
